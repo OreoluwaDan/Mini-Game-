@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catch the Dot Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+
+        .game-container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            background-color: #fff;
+            border: 2px solid #333;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .dot {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background-color: #ff6347; /* Tomato color */
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .score {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <div class="score">Score: 0</div>
+        <div class="dot"></div>
+    </div>
+
+    <script>
+        const dot = document.querySelector('.dot');
+        const scoreDisplay = document.querySelector('.score');
+        let score = 0;
+
+        function getRandomPosition() {
+            const container = document.querySelector('.game-container');
+            const x = Math.random() * (container.clientWidth - dot.clientWidth);
+            const y = Math.random() * (container.clientHeight - dot.clientHeight);
+            return { x, y };
+        }
+
+        function moveDot() {
+            const { x, y } = getRandomPosition();
+            dot.style.left = `${x}px`;
+            dot.style.top = `${y}px`;
+        }
+
+        function updateScore() {
+            score += 1;
+            scoreDisplay.textContent = `Score: ${score}`;
+        }
+
+        dot.addEventListener('click', () => {
+            updateScore();
+            moveDot();
+        });
+
+        // Initial move
+        moveDot();
+    </script>
+</body>
+</html>
